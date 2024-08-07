@@ -15,13 +15,37 @@ function determineWinner({ player, enemy, timerId }) {
   document.querySelector('#displayText').style.display = 'flex'
   if (player.health === enemy.health) 
   {
-    document.querySelector('#displayText').innerHTML = 'Tie'
+    document.querySelector('#displayText').innerHTML = 'Tie'+ "<br /><br />" + "Press enter to rematch"
+    refresh()
+  } else if (player.health > enemy.health && player.health === 100) {
+    document.querySelector('#displayText').innerHTML = 'Flawless victory!'+ "<br />" + 'Blue Ninja slain' + "<br /><br />" + "Press enter to rematch"
+    refresh()
+  } else if (player.health < enemy.health && enemy.health === 100) {
+    document.querySelector('#displayText').innerHTML = 'Flawless victory!'+ "<br />" + 'Red Ninja slaughtered' + "<br /><br />" + "Press enter to rematch"
+    refresh()
+  } else if (player.health < enemy.health && enemy.health < 20) {
+    document.querySelector('#displayText').innerHTML = 'Close call!'+ "<br />" + 'Blue Ninja survived' + "<br /><br />" + "Press enter to rematch"
+    refresh()
+  } else if (enemy.health < player.health && player.health < 20) {
+    document.querySelector('#displayText').innerHTML = 'Barely alive!'+ "<br />" + 'Red Ninja survived' + "<br /><br />" + "Press enter to rematch"
+    refresh()
   } else if (player.health > enemy.health) {
-    document.querySelector('#displayText').innerHTML = 'Player 1 Wins'
+    document.querySelector('#displayText').innerHTML = 'Red Ninja wins'+ "<br /><br />" + "Press enter to rematch"
+    refresh()
   } else if (player.health < enemy.health) {
-    document.querySelector('#displayText').innerHTML = 'Player 2 Wins'
+    document.querySelector('#displayText').innerHTML = 'Blue Ninja wins'+ "<br /><br />" + "Press enter to rematch"
+    refresh()
   }
+
 }
+function refresh() {
+
+window.addEventListener('keydown', (event) => {
+  setTimeout(() => {
+  location.reload();
+  }, 15000);
+  switch (event.key) {      case 'Enter':
+  location.reload()}})}
 
 let timer = 60
 let timerId
